@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Borrar SRs</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<form name="formCodigos" onsubmit="CrearCodigo(event)">
+	Por favor ingresá el/los numeros de SRs a continuación, separados por coma en caso de ser múltiples SRs<br>
+Códigos: <input type="text" name="inputCodigos">&nbsp;<input type="submit" value="Generar" class="btn btn-success" /><br><br>
+<textarea name="textCodigos" id="" cols="70" rows="20"></textarea><br>
+<input name="genOk" readonly /><br>
+
+</form>
+<script>
+	function CrearCodigo(e){
+		debugger;
+		e.preventDefault();
+		var sCodigos=formCodigos.inputCodigos.value;
+		var aCodigos=sCodigos.split(',');
+		sCodigos='';
+		for (var i = aCodigos.length - 1; i >= 0; i--) {
+			if(aCodigos[i].toString()!=""){
+				var iId=aCodigos[i];
+				var sCodigos=sCodigos+'CallAjaxObjectFunction("ServiceRequestMgmt.Requests.btnDelete",'+iId+')\n';
+			}
+		};
+		sCodigos=sCodigos+'\n\n\n\n Ahora por favor entrá en cualquier SR, abri la consola, y escribí linea por linea lo generado. Al hacer esto por cada SR que se elimine tenés que volver a entrar en cualquier SR! ';
+		formCodigos.textCodigos.value=sCodigos;
+		formCodigos.genOk.value = "Generado!";
+	}
+</script>
+</body>
+</html>
